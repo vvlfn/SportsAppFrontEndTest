@@ -19,12 +19,13 @@ $result = getAllContenders($conn);
 </head>
 <body>
 
-<a href="index.php">Wróć</a>
+<a href="team_contenders.php?TeamID=<?= $TeamID ?>">Wróć</a>
 
 <table>
     <tr>
         <th>Imie</th>
         <th>Nazwisko</th>
+        <th>Klasa</th>
         <th>Płeć</th>
         <th>Status</th>
     </tr>
@@ -40,6 +41,7 @@ $result = getAllContenders($conn);
     <tr>
         <td><?= $row['FirstName'] ?></td>
         <td><?= $row['LastName'] ?></td>
+        <td><?= $row['Class'] ?></td>
         <td><?= $row['Gender'] ?></td>
         <td><?= $row['Status'] ?></td>
         <td><a href="logic/add_cont_to_team.php?ID=<?= $row['ID'] ?>&TeamID=<?= $TeamID ?>">Dodaj</a></td>

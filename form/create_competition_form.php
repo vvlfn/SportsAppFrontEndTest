@@ -7,7 +7,7 @@
 </head>
 <body>
     
-<a href="../index.php">Wróć</a>
+<a href="../competitions.php">Wróć</a>
 
 <form action="../logic/create_competition.php" method="post">
 

@@ -25,6 +25,7 @@ $result = getTeamContenders($conn, $TeamID);
     <tr>
         <th>Imie</th>
         <th>Nazwisko</th>
+        <th>Klasa</th>
         <th>Płeć</th>
         <th>Status</th>
         <th>Drużyna</th>

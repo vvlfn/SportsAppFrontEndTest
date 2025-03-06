@@ -52,7 +52,7 @@ $_SESSION['TeamIDs'] = $TeamIDs;
 <a href="add_comp_teams.php?CompID=<?= $CompID ?>">Dodaj drużynę</a><br>
 
 
-<a href="generate_tracks.php">Wygeneruj tory</a>
+<a href="generate_tracks.php?CompID=<?= $CompID ?>">Wygeneruj tory</a>
     
 </body>
 </html>

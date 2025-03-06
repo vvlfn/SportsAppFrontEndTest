@@ -7,7 +7,7 @@
 </head>
 <body>
     
-<a href="../index.php">Wróć</a>
+<a href="../contenders.php">Wróć</a>
 
 <form action="../logic/create_contender.php" method="post">
 

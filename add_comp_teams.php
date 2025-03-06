@@ -19,7 +19,7 @@ $result = getAllTeams($conn);
 </head>
 <body>
 
-<a href="index.php">Wróć</a>
+<a href="show_competition.php?CompID=<?=$CompID?>">Wróć</a>
 
 <table>
     <tr>
