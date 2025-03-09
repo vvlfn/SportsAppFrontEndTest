@@ -37,21 +37,20 @@ shuffle($result);
 
 <?php   
 
-    if ($Contenders % $TrackLimit < 3) {
+    if ($Contenders > $TrackLimit && $Contenders % $TrackLimit < 3) {
         $UnevenLimit = $Contenders - (ceil($TrackLimit / 2));
     }
-
 
 ?>
 
 <?php foreach($result as $row): ?>
     <?php 
-        
-        $ContenderNum++;
-        
-        if ($TrackNum > 5) {
+
+        if ($TrackNum > 5 || ($ContenderNum == ($UnevenLimit + 1))) {
             $TrackNum = 1;
         }
+
+        $ContenderNum++;
 
     ?>
     <tr>
