@@ -108,6 +108,28 @@ function getTrackContenders($conn, $TeamIDs) {
     return $TrackContenders;
 }
 
+function getCompName($conn, $CompID) {
+    $stmt = $conn->prepare("SELECT name FROM Competitions WHERE ID = ?");
+
+    $stmt->bind_param("i", $CompID);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $result = $result->fetch_assoc();
+
+    return $result["name"];
+}
+
+function getTrackContendersDB($conn, $CompName) {
+    $TrackDBName = $CompName . "_Tracks";
+
+    $result = $conn->query("SELECT * FROM $TrackDBName");
+
+    return $result;
+}
+
 #CREATE FUNCTIONS
 #-----------------------------------------------------------------------------
 
@@ -134,6 +156,17 @@ function createCompetition($conn, $Name) {
 
     $stmt->execute();
 }
+
+function createTrackDB($conn, $CompName) {
+    $TrackDBName = $CompName . "_Tracks";
+
+    $result = $conn->query("CREATE TABLE $TrackDBName (
+                            Track INT,
+                            FirstName VARCHAR(50),
+                            LastName VARCHAR(50),
+                            Class VARCHAR(3))
+                            ");
+} 
 
 #DELETE FUNCTIONS
 #-----------------------------------------------------------------------------
@@ -178,7 +211,14 @@ function deleteFromCompetition($conn, $TeamID) {
     $stmt->execute();
 }
 
+function deleteTrackDB($conn, $CompName) {
+    $TrackDBName = $CompName . "_Tracks";
+
+    $result = $conn->query("DROP TABLE $TrackDBName");
+}
+
 #ADD METHODS
+#-----------------------------------------------------------------------------
 
 function addContenderToTeam($conn, $TeamID, $ID) {
     $stmt = $conn->prepare("UPDATE Contenders SET TeamID = ? WHERE ID = ?");
@@ -194,4 +234,31 @@ function addTeamToCompetition($conn, $CompID, $TeamID) {
     $stmt->bind_param("ii", $CompID, $TeamID);
 
     $stmt->execute();
+}
+
+function addTrack($conn, $CompName, $track, $firstName, $lastName, $class) {
+    $TrackDBName = $CompName . "_Tracks";
+
+    $stmt = $conn->prepare("INSERT INTO $TrackDBName (Track, FirstName, LastName, Class)
+                            VALUES (?, ?, ?, ?)");
+
+    $stmt->bind_param("isss", $track, $firstName, $lastName, $class);
+
+    $stmt->execute();
+}
+
+#OTHER METHODS
+#-----------------------------------------------------------------------------
+
+function checkIfTrackDBExists($conn, $CompName) {
+    $TrackDBName = $CompName . "_Tracks";
+
+    $result = $conn->query("SHOW TABLES LIKE '{$TrackDBName}'");
+
+    if ($result->num_rows == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }

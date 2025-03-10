@@ -12,6 +12,11 @@ $TrackLimit = 5;
 $conn = connect($servername, $username, $password, $database);
 
 $result = getTrackContenders($conn, $TeamIDs);
+
+$CompName = getCompName($conn, $CompID);
+
+$TracksExist = checkIfTrackDBExists($conn, $CompName);
+
 $Contenders = count($result);
 $ContenderNum = 1;
 
@@ -43,6 +48,10 @@ shuffle($result);
 
 ?>
 
+<?php if (!$TracksExist): ?>
+
+<?php createTrackDB($conn, $CompName); ?>
+
 <?php foreach($result as $row): ?>
     <?php 
 
@@ -53,15 +62,38 @@ shuffle($result);
         $ContenderNum++;
 
     ?>
+
+<?php addTrack($conn, $CompName, $TrackNum, $row['FirstName'], $row['LastName'], $row['Class']) ?>
+
     <tr>
         <td>Tor:  <?= $TrackNum++ ?></td>
         <td><?= $row['FirstName'] ?></td>
         <td><?= $row['LastName'] ?></td>
         <td><?= $row['Class'] ?></td>
     </tr>
+
 <?php endforeach ?>
 
+<?php else: ?>
+
+<?php $result = getTrackContendersDB($conn, $CompName) ?>
+
+<?php foreach($result as $row): ?>
+
+    <tr>
+        <td>Tor: <?= $row['Track'] ?></td>
+        <td><?= $row['FirstName'] ?></td>
+        <td><?= $row['LastName'] ?></td>
+        <td><?= $row['Class'] ?></td>
+    </tr>
+
+<?php endforeach ?>
+
+<?php endif ?>
+
 </table>
+
+<a href="logic/refresh_tracks.php?CompID=<?= $CompID ?>&CompName=<?= $CompName ?>">Odśwież</a>
     
 </body>
 </html>
