@@ -66,7 +66,7 @@ shuffle($result);
 <?php addTrack($conn, $CompName, $TrackNum, $row['FirstName'], $row['LastName'], $row['Class']) ?>
 
     <tr>
-        <td>Tor:  <?= $TrackNum++ ?></td>
+        <td>Tors:  <?= $TrackNum++ ?></td>
         <td><?= $row['FirstName'] ?></td>
         <td><?= $row['LastName'] ?></td>
         <td><?= $row['Class'] ?></td>
