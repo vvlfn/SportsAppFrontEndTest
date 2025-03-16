@@ -8,6 +8,7 @@ $CompID = $_GET["CompID"];
 $TeamIDs = $_SESSION['TeamIDs'];
 $TrackNum = 1;
 $TrackLimit = 5;
+$Tour = 1;
 
 $conn = connect($servername, $username, $password, $database);
 
@@ -57,19 +58,26 @@ shuffle($result);
 
         if ($TrackNum > 5 || ($ContenderNum == ($UnevenLimit + 1))) {
             $TrackNum = 1;
+            $Tour++;
         }
 
         $ContenderNum++;
 
     ?>
 
-<?php addTrack($conn, $CompName, $TrackNum, $row['FirstName'], $row['LastName'], $row['Class']) ?>
+<?php addTrack($conn, $CompName, $TrackNum, $row['FirstName'], $row['LastName'], $row['Class'], $row['ID']) ?>
 
     <tr>
-        <td>Tors:  <?= $TrackNum++ ?></td>
+        <td>Tor:  <?= $TrackNum++ ?></td>
         <td><?= $row['FirstName'] ?></td>
         <td><?= $row['LastName'] ?></td>
         <td><?= $row['Class'] ?></td>
+        <td>
+        <form method="POST" action="./logic/add_score.php?ContenderID=<?= $row['ID'] ?>&CompID=<?= $CompID ?>&Tour=<?= $Tour ?>">
+            <input type="text" placeholder="00:00:00" name="score">
+            <input type="submit" value="OK">
+        </form>
+        </td>
     </tr>
 
 <?php endforeach ?>
@@ -80,11 +88,29 @@ shuffle($result);
 
 <?php foreach($result as $row): ?>
 
+<?php $scoreAdded = checkIfScorePresent($conn, $row['ID']) ?>
+
     <tr>
         <td>Tor: <?= $row['Track'] ?></td>
         <td><?= $row['FirstName'] ?></td>
         <td><?= $row['LastName'] ?></td>
         <td><?= $row['Class'] ?></td>
+        <td>
+        <form method="POST" action="./logic/add_score.php?ContenderID=<?= $row['ID'] ?>&CompID=<?= $CompID ?>&Tour=<?= $Tour ?>">
+            <?php if ($scoreAdded): ?>
+            <?php $score = getScore($conn, $row['ID']) ?>
+
+            <input type="text" placeholder="00:00:00" name="score" value="<?= $score['Score'] ?>">
+            <input type="submit" value="OK">
+
+            <?php else: ?>
+
+            <input type="text" placeholder="00:00:00" name="score">
+            <input type="submit" value="OK">
+
+            <?php endif ?>
+        </form>
+        </td>
     </tr>
 
 <?php endforeach ?>
