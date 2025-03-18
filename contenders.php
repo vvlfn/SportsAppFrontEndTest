@@ -24,66 +24,86 @@ $result = getAllContenders($conn);
 </head>
 
 <body>
-    <div class="p-4 mb-4 bg-light rounded-3">
-        <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Aplikacja do zawodów pływania</h1>
-            <p class="col-md-8 fs-4">
-                Using a series of utilities, you can create this jumbotron, just
-                like the one in previous versions of Bootstrap. Check out the
-                examples below for how you can remix and restyle it to your liking.
-            </p>
-            <!-- <button class="btn btn-primary btn-lg" type="button">
-                Example button
-            </button> -->
-
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="index.php">Zawody pływania</a>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contenders.php">Zawodnicy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="teams.php">Drużyny</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="competitions.php">Zawody</a>
+                </li>
+            </ul>
         </div>
-    </div>
-
-    <nav class="navbar navbar-expand navbar-light bg-light">
-        <ul class="nav navbar-nav">
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php" aria-current="page">Powrót<span
-                        class="visually-hidden">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contenders.php">Zawodnicy</a>
-            <li class="nav-item">
-                <a class="nav-link" href="teams.php">Drużyny</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="competitions.php">Zawody</a>
-            </li>
-        </ul>
     </nav>
+    <div class="container">
+        <a name="Contender Creation" class="btn btn-warning mx-auto d-block w-25 my-4 btn-lg"
+            href="form/create_contender_form.php" role="button">Stwórz
+            zawodnika</a>
+        <!-- <a href="form/create_contender_form.php">Stwórz Zawodnika</a> -->
 
-    <table>
-        <tr>
-            <th>Imie</th>
-            <th>Nazwisko</th>
-            <th>Klasa</th>
-            <th>Płeć</th>
-            <th>Status</th>
-            <th>Drużyna</th>
-        </tr>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered table-light align-middle">
+                <thead class="table-dark">
+                    <caption>
+                        Zawodnicy
+                    </caption>
+                    <tr>
+                        <th>#</th>
+                        <th>Imie</th>
+                        <th>Nazwisko</th>
+                        <th>Klasa</th>
+                        <th>Płeć</th>
+                        <th>Status</th>
+                        <th>Drużyna</th>
+                        <th>Akcja</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- czemu tutaj daje 1,2.... nad tabelą xdd
+                     zjebałem coś -->
+                    <?php $i = 1;
+                    while ($row = $result->fetch_assoc()) : ?>
+                        <tr>
+                            <th class="scope-row"><?= $i ?></th>
+                            <td><?= $row['FirstName'] ?></td>
+                            <td><?= $row['LastName'] ?></td>
+                            <td><?= $row['Class'] ?></td>
+                            <td><?= $g = $row['Gender'] == "M" ? "Mężczyzna" : "Kobieta" ?></td>
+                            <td><?= $st = $row['Status'] == "C" ? "Cywil" : "Wojskowy" ?></td>
+                            <td><?= getTeamName($conn, $row['TeamID']) ?></td>
+                            <td><a class="text-danger" style="font-weight: bolder !important"
+                                    href="logic/delete_contender.php?ID=<?= $row['ID'] ?>">Usuń</a>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endwhile ?>
+                </tbody>
+                <tfoot>
 
-        <?php while ($row = $result->fetch_assoc()): ?>
+                </tfoot>
+            </table>
+        </div>
+
+
+        <table>
             <tr>
-                <td><?= $row['FirstName'] ?></td>
-                <td><?= $row['LastName'] ?></td>
-                <td><?= $row['Class'] ?></td>
-                <td><?= $row['Gender'] ?></td>
-                <td><?= $row['Status'] ?></td>
-                <td><?= getTeamName($conn, $row['TeamID']) ?></td>
-                <td><a href="logic/delete_contender.php?ID=<?= $row['ID'] ?>">Usuń</a></td>
+
             </tr>
-        <?php endwhile ?>
 
 
-    </table>
 
-    <a href="form/create_contender_form.php">Stwórz Zawodnika</a>
 
+        </table>
+
+    </div>
 </body>
 
 <?php

@@ -13,27 +13,21 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-            aria-label="Toggle navigation"></button>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="index.php">Zawody pływania</a>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" aria-current="page">Home <span
-                            class="visually-hidden">(current)</span></a>
+                    <a class="nav-link" href="index.php">Strona główna</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="contenders.php">Zawodnicy</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="#">Action 1</a>
-                        <a class="dropdown-item" href="#">Action 2</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="teams.php">Drużyny</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="competitions.php">Zawody</a>
                 </li>
             </ul>
         </div>
@@ -41,20 +35,18 @@
 
 
     <div class="p-4 mb-4 bg-light rounded-3">
-        <div class="row">
-            <div class="col">
+        <div class="row d-flex justify-content-between">
+            <div class="col-2">
+                <img src="img/logo.png" class="img-fluid rounded-top d-block m-auto h-100" alt="" />
+            </div>
+            <div class="col-6">
+                <h1 class="display-5 fw-bold text-center">Aplikacja do zawodów pływania</h1>
+                <p class="col-md-8 fs-4 text-center d-block mx-auto">Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit.Cupiditate, odio reiciendis aperiam quisquam nihil accusantium pariatur deserunt,
+                    error laudantium iure ratione fugiat perspiciatis expedita vitae?</p>
+            </div>
 
-                <h1 class="display-5 fw-bold">Aplikacja do zawodów pływania</h1>
-                <p class="col-md-8 fs-4">
-                    Using a series of utilities, you can create this jumbotron, just
-                    like the one in previous versions of Bootstrap. Check out the
-                    examples below for how you can remix and restyle it to your liking.
-                </p>
-            </div>
-            <div class="col">
-                <img src="img/logo.png" class="img-fluid rounded-top d-block m-auto" alt="" />
-            </div>
-            <div class="col">
+            <div class="col-3">
                 <!-- Hover added -->
                 <!-- Hover added -->
 
